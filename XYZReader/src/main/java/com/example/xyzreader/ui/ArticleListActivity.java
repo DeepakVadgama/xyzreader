@@ -48,12 +48,7 @@ public class ArticleListActivity extends AppCompatActivity implements
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-
-        CollapsingToolbarLayout collapsingToolbar =
-                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle("XYZ Reader");
-        collapsingToolbar.setExpandedTitleColor(Color.WHITE);
-        collapsingToolbar.setCollapsedTitleTextColor(Color.WHITE);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 //        final View toolbarContainerView = findViewById(R.id.appbar);
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
