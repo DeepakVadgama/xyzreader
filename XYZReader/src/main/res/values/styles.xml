@@ -33,7 +33,7 @@
     </style>
 
     <style name="ActionBar.TitleText" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textColor">@color/colorWhile</item>
+        <item name="android:textColor">@color/colorWhite</item>
     </style>
 
 </resources>
