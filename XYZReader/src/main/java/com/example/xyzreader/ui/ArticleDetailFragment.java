@@ -25,12 +25,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.bumptech.glide.request.target.Target;
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
@@ -59,7 +59,8 @@ public class ArticleDetailFragment extends Fragment implements
     private TextView mBylineView;
     private TextView mBodyView;
     private FloatingActionButton mShareFab;
-    private NestedScrollView mArticleContainer;
+    private NestedScrollView mArticleContainerScrollView;
+    private LinearLayout mArticleContainer;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -126,6 +127,8 @@ public class ArticleDetailFragment extends Fragment implements
         }
 
         mArticleImage = (ImageView) mRootView.findViewById(R.id.article_image);
+        mIsCard = getResources().getBoolean(R.bool.article_detail_is_card);
+
         bindViews();
 
         return mRootView;
@@ -142,10 +145,19 @@ public class ArticleDetailFragment extends Fragment implements
         mBylineView.setMovementMethod(new LinkMovementMethod());
         mBodyView = (TextView) mRootView.findViewById(R.id.article_body);
         mShareFab = (FloatingActionButton) mRootView.findViewById(R.id.share_fab);
-        mIsCard = getResources().getBoolean(R.bool.article_detail_is_card);
-        mArticleContainer = (NestedScrollView) mRootView.findViewById(R.id.nested_scroll_view);
+        mArticleContainerScrollView = (NestedScrollView) mRootView.findViewById(R.id.nested_scroll_view);
+        mArticleContainer = (LinearLayout) mRootView.findViewById(R.id.article_detail_content_container);
 
         if (mCursor != null) {
+
+            Glide.with(getActivity())
+                    .load(mCursor.getString(ArticleLoader.Query.PHOTO_URL))
+                    .asBitmap()
+                    .priority(Priority.HIGH)
+                    .listener(new MyRequestListener())
+                    .into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL);
+
+
             mRootView.setAlpha(0);
             mRootView.setVisibility(View.VISIBLE);
             mRootView.animate().alpha(1);
@@ -174,46 +186,9 @@ public class ArticleDetailFragment extends Fragment implements
             });
 
             if (mIsCard) {
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    mArticleContainer.setElevation(4.0f);
-                }
-                Glide.with(getActivity())
-                        .load(mCursor.getString(ArticleLoader.Query.PHOTO_URL))
-                        .crossFade()
-                        .priority(Priority.IMMEDIATE)
-                        .into(mArticleImage)
-                        .getSize(new SizeReadyCallback() {
-                            @Override
-                            public void onSizeReady(int width, int height) {
-
-                                if (mIsCard) {
-                                    CoordinatorLayout.LayoutParams params =
-                                            (CoordinatorLayout.LayoutParams) mArticleContainer.getLayoutParams();
-                                    AppBarLayout.ScrollingViewBehavior behavior =
-                                            (AppBarLayout.ScrollingViewBehavior) params.getBehavior();
-                                    int overlayTop = mArticleImage.getHeight() <= 0 ? 150 : mArticleImage.getHeight() - 150;
-                                    behavior.setOverlayTop(overlayTop);
-                                }
-                            }
-                        });
-
-            } else {
-                Glide.with(getActivity())
-                        .load(mCursor.getString(ArticleLoader.Query.PHOTO_URL))
-                        .fitCenter()
-                        .priority(Priority.IMMEDIATE)
-                        .crossFade()
-                        .into(mArticleImage);
+                mArticleContainer.getLayoutParams().width =
+                        (int) (getResources().getDimension(R.dimen.article_detail_card_max_width));
             }
-
-            // Need to check if this affects performance or if Glide caches the images
-            Glide.with(getActivity())
-                    .load(mCursor.getString(ArticleLoader.Query.THUMB_URL))
-                    .asBitmap()
-                    .priority(Priority.LOW)
-                    .listener(new MyRequestListener())
-                    .into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL);
 
         } else {
             mRootView.setVisibility(View.GONE);
@@ -240,10 +215,20 @@ public class ArticleDetailFragment extends Fragment implements
                 ArticleDetailFragment.this.mTitleView.setTextColor(swatch.getBodyTextColor());
                 ArticleDetailFragment.this.mBylineView.setBackgroundColor(swatch.getRgb());
                 ArticleDetailFragment.this.mBylineView.setTextColor(swatch.getTitleTextColor());
-                mCollapsingToolbar.setContentScrimColor(swatch.getRgb());
-                mCollapsingToolbar.setBackgroundColor(swatch.getRgb());
             }
+            mArticleImage.setImageBitmap(resource);
 
+            if (mIsCard) {
+                CoordinatorLayout.LayoutParams params =
+                        (CoordinatorLayout.LayoutParams) mArticleContainerScrollView.getLayoutParams();
+                AppBarLayout.ScrollingViewBehavior behavior =
+                        (AppBarLayout.ScrollingViewBehavior) params.getBehavior();
+                int overlayTop = resource.getHeight() - 150;
+                behavior.setOverlayTop(overlayTop);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    mArticleContainerScrollView.setElevation(4.0f);
+                }
+            }
             return true;
         }
 
