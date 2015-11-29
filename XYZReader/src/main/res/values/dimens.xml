@@ -21,4 +21,13 @@
     <dimen name="article_body_padding_top">16dp</dimen>
     <dimen name="fab_button_elevation">8dp</dimen>
     <dimen name="article_body_padding_bottom">16dp</dimen>
+
+    <!-- detail -->
+    <bool name="article_detail_is_card">false</bool>
+    <dimen name="article_detail_card_top_margin">304dp</dimen>
+    <dimen name="article_detail_card_max_width">10000dp</dimen>
+    <!-- force match_parent -->
+    <dimen name="article_detail_body_bottom_margin">88dp</dimen>
+    <dimen name="article_detail_content_margin_bottom">0dp</dimen>
+
 </resources>

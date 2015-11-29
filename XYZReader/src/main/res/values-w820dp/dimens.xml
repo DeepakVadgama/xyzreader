@@ -4,4 +4,8 @@
          would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively). -->
     <dimen name="activity_horizontal_margin">64dp</dimen>
     <integer name="list_column_count">3</integer>
+    <dimen name="detail_card_max_width">704dp</dimen>
+    <!-- force match_parent -->
+    <bool name="article_detail_is_card">true</bool>
+    <dimen name="article_detail_card_max_width">600dp</dimen>
 </resources>

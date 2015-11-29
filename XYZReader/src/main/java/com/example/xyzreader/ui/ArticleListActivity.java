@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.xyzreader.R;
@@ -155,9 +156,12 @@ public class ArticleListActivity extends AppCompatActivity implements
                             + " by "
                             + mCursor.getString(ArticleLoader.Query.AUTHOR));
 
+
+            Priority priority = position <= 4 ? Priority.HIGH : Priority.LOW;
             Glide.with(holder.thumbnailView.getContext())
                     .load(mCursor.getString(ArticleLoader.Query.THUMB_URL))
                     .fitCenter()
+                    .priority(priority)
                     .crossFade()
                     .into(holder.thumbnailView);
 
@@ -165,6 +169,7 @@ public class ArticleListActivity extends AppCompatActivity implements
             Glide.with(holder.thumbnailView.getContext())
                     .load(mCursor.getString(ArticleLoader.Query.THUMB_URL))
                     .asBitmap()
+                    .priority(Priority.LOW)
                     .listener(new MyRequestListener(holder))
                     .into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL);
         }

@@ -31,6 +31,7 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/article_image"
                 android:fitsSystemWindows="true"
+                android:scaleType="fitXY"
                 android:src="@color/photo_placeholder"
                 app:layout_collapseMode="none"
                 tools:src="@drawable/placeholder_article_photo"/>
@@ -52,23 +53,28 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
+        android:id="@+id/nested_scroll_view"
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
-        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                                            xmlns:tools="http://schemas.android.com/tools"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:clickable="true"
-                                            android:focusable="true"
-                                            app:cardCornerRadius="0dp"
-                                            android:foreground="?selectableItemBackground">
-
+        <!--      <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                                  xmlns:tools="http://schemas.android.com/tools"
+                                                  android:layout_width="match_parent"
+                                                  android:layout_height="wrap_content"
+                                                  android:layout_gravity="center_horizontal"
+                                                  android:clickable="true"
+                                                  android:focusable="true"
+                                                  android:foreground="?selectableItemBackground"
+                                                  app:cardCornerRadius="0dp">
+      -->
             <LinearLayout
-                android:id="@+id/item_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:id="@+id/article_detail_content_container"
+                android:layout_width="@dimen/article_detail_card_max_width"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/article_detail_content_margin_bottom"
+                android:background="#fff"
                 android:orientation="vertical">
 
                 <TextView
@@ -101,17 +107,17 @@
                 <TextView
                     android:id="@+id/article_body"
                     style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/article_body_padding_bottom"
                     android:paddingLeft="@dimen/article_headline_padding_sides"
                     android:paddingRight="@dimen/article_headline_padding_sides"
                     android:paddingTop="@dimen/article_body_padding_top"
-                    android:paddingBottom="@dimen/article_body_padding_bottom"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     tools:text="@string/placeholder_article_text"/>
 
             </LinearLayout>
 
-        </android.support.v7.widget.CardView>
+        <!--</android.support.v7.widget.CardView>-->
 
     </android.support.v4.widget.NestedScrollView>
 
@@ -120,13 +126,13 @@
         android:id="@+id/share_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:clickable="true"
         android:src="@drawable/ic_share"
         app:borderWidth="0dp"
         app:elevation="@dimen/fab_button_elevation"
         app:fabSize="normal"
-        android:layout_gravity="bottom|end"
         />
 
 </android.support.design.widget.CoordinatorLayout>
