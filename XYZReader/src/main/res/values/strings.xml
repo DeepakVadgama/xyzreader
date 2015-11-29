@@ -10,5 +10,6 @@
     <string name="up">Up</string>
     <string name="title_activity_temp">TempActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="article_image">Article Image</string>
 
 </resources>
