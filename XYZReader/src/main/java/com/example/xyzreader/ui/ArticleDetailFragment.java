@@ -7,7 +7,6 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
