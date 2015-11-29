@@ -32,7 +32,6 @@
                 android:contentDescription="@string/article_image"
                 android:fitsSystemWindows="true"
                 android:src="@color/photo_placeholder"
-                android:minHeight="100dp"
                 app:layout_collapseMode="none"
                 tools:src="@drawable/placeholder_article_photo"/>
 
@@ -56,38 +55,79 @@
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/article_title"
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                            xmlns:tools="http://schemas.android.com/tools"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:clickable="true"
+                                            android:focusable="true"
+                                            app:cardCornerRadius="0dp"
+                                            android:foreground="?selectableItemBackground">
+
+            <LinearLayout
+                android:id="@+id/item_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="60sp"
-                tools:text="Some big headline"/>
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/article_byline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="16dp"
-                android:textSize="60sp"
-                tools:text="Some big subtitle"/>
+                <TextView
+                    android:id="@+id/article_title"
+                    style="@style/TextAppearance.AppCompat.Headline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="4"
+                    android:paddingBottom="@dimen/headline_padding_bottom"
+                    android:paddingLeft="@dimen/article_headline_padding_sides"
+                    android:paddingRight="@dimen/article_headline_padding_sides"
+                    android:paddingTop="@dimen/headline_padding_top"
+                    tools:text="@string/placeholder_title"
+                    />
 
-            <TextView
-                android:id="@+id/article_body"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="60sp"
-                tools:text="Some big text"/>
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/article_byline"
+                    style="@style/TextAppearance.AppCompat.Body2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:paddingBottom="@dimen/subtext_padding_bottom"
+                    android:paddingLeft="@dimen/article_headline_padding_sides"
+                    android:paddingRight="@dimen/article_headline_padding_sides"
+                    android:singleLine="true"
+                    tools:text="@string/placeholder_subtitle"/>
+
+                <TextView
+                    android:id="@+id/article_body"
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:paddingLeft="@dimen/article_headline_padding_sides"
+                    android:paddingRight="@dimen/article_headline_padding_sides"
+                    android:paddingTop="@dimen/article_body_padding_top"
+                    android:paddingBottom="@dimen/article_body_padding_bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/placeholder_article_text"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
 
     </android.support.v4.widget.NestedScrollView>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/share_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:clickable="true"
+        android:src="@drawable/ic_share"
+        app:borderWidth="0dp"
+        app:elevation="@dimen/fab_button_elevation"
+        app:fabSize="normal"
+        android:layout_gravity="bottom|end"
+        />
 
 </android.support.design.widget.CoordinatorLayout>
 

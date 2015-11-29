@@ -11,5 +11,8 @@
     <string name="title_activity_temp">TempActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="article_image">Article Image</string>
+    <string name="placeholder_subtitle">July 19, 2010 by Carl Sagan</string>
+    <string name="placeholder_title">Mysteries of Universe Solved</string>
+    <string name="placeholder_article_text">This is a tools only article line which is to demonstrate how the article will look. This is a tools only article line which is to demonstrate how the article will look. This is a tools only article line which is to demonstrate how the article will look.</string>
 
 </resources>
